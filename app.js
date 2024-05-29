@@ -29,10 +29,14 @@ let respuesta=await fetch("php/insertarContacto.php",{method:'POST',body:datos})
 let json=await respuesta.json();
 
 if(json.success==true){
-    Swal.fire({title: "¡REGRISTRO ÉXITOSO!",text: json.mensaje,icon: "success"
+    Swal.fire({title: "Se registro",
+               text: json.mensaje,
+               icon: "success"
     });
 }else{
-    Swal.fire({ title: "ERROR",text: json.mensaje,icon: "error"
+    Swal.fire({ title: "no",
+               text: json.mensaje,
+               icon: "error"
     });
 }
 cargarContactos();
@@ -49,8 +53,8 @@ const cargarContactos=async()=>{
         <td>${item[2]}</td>
         <td>${item[3]}</td>
         <td>${item[4]}</td>
-        <td> <button class="btn btn-danger" onclick="eliminarContacto(${item[0]})">DEL</button></td>
-      <td> <button class="btn btn-success"  onclick="mostrarContacto(${item[0]})" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button></td>
+        <td> <button class="btn btn-dark" onclick="eliminarContacto(${item[0]})">DEL</button></td>
+      <td> <button class="btn btn-primary"  onclick="mostrarContacto(${item[0]})" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button></td>
         </tr>
     `
     });
@@ -61,10 +65,10 @@ const cargarContactos=async()=>{
 
 const eliminarContacto = async (id) => {
     Swal.fire({
-        title: "¿Estás seguro de eliminar este contacto?",
+        title: "eliminar?",
         showDenyButton: true,
-        confirmButtonText: "Si, estoy seguro",
-        denyButtonText: "No estoy seguro"
+        confirmButtonText: "Si",
+        denyButtonText: "No"
 
     }).then(async (result) => {
         if (result.isConfirmed) {
@@ -79,13 +83,17 @@ const eliminarContacto = async (id) => {
 
             if (json.success == true) {
                 Swal.fire({
-                    title: "¡Se eliminó con éxito!", text: json.mensaje, icon: "success"});
+                    title: "se elimino", 
+                    text: json.mensaje, 
+                    icon: "success"});
             } else {
                 Swal.fire({
-                    title: "ERROR", text: json.mensaje, icon: "error"});
+                    title: "no", 
+                    text: json.mensaje, 
+                    icon: "error"});
             }
             cargarContactos();
-            Swal.fire("Contacto eliminado", "", "success");
+            Swal.fire("el contacto se elimino", "", "success");
         }
     });
 }
@@ -137,10 +145,14 @@ const actualizarContacto=async()=>{
     
     document.querySelector("#editModal").click();
     if(json.success==true){
-        Swal.fire({title: "¡ACTUALIZACIÓN ÉXITOSA!",text: json.mensaje,icon: "success"
+        Swal.fire({title: "se actualizo",
+                   text: json.mensaje,
+                   icon: "success"
         });
     }else{
-        Swal.fire({ title: "ERROR",text: json.mensaje,icon: "error"
+        Swal.fire({ title: "no",
+                   text: json.mensaje,
+                   icon: "error"
         });
     }
     cargarContactos();
